@@ -5,6 +5,7 @@
 // Define DEBUG flag above #include <vector.h> to enable DEBUG flag and DEBUG output to STDOUT.
 #define DEBUG
 #include "vector.h"
+#include <stdbool.h>
 
 #undef VEC_LENGTH
 #define VEC_LENGTH 2
@@ -14,6 +15,11 @@
 struct person {
     int age;
     char* name;
+};
+
+struct animal {
+    char* name;
+    bool isdog;
 };
 
 int main() {
@@ -94,7 +100,16 @@ int main() {
     vector_push_back(z, person2);
     current_index = vector_get_current_index_data(z);
     printf("%s\n", current_index->name);
+    vector_free(z);
 
+    struct animal dog;
+    dog.name = "doggie";
+    dog.isdog = true;
+    vector_declare(struct animal) creature;
+    vector_initialize(creature);
+    vector_push_back(creature, dog);
+    struct animal* animal_current_index = vector_get_current_index_data(creature);
+    printf("%s\n", animal_current_index->name);
 
 
 
