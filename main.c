@@ -1,7 +1,10 @@
+//
+// Created by Girish Pillai on 4/9/17.
+//
 #include <stdio.h>
-
+// Define DEBUG flag above #include <vector.h> to enable DEBUG flag and DEBUG output to STDOUT.
 #define DEBUG
-#include "library.h"
+#include "vector.h"
 
 #undef VEC_LENGTH
 #define VEC_LENGTH 2
