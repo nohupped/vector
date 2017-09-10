@@ -31,15 +31,15 @@ static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
         abort(); \
     } \
     DEBUG_PRINT("vector_initialize: Default vector capacity defined is %d\n", VEC_LENGTH); \
-    ((VECTOR).vector_capacity) = (size_t *) calloc(sizeof(size_t), (1)); \
+    ((VECTOR).vector_capacity) = (size_t *) malloc(sizeof(size_t) * (1)); \
     pthread_mutex_lock(&mutex); \
     (*(VECTOR).vector_capacity) =  VEC_LENGTH; \
     pthread_mutex_unlock(&mutex); \
-    DEBUG_PRINT("vector_initialize: callocing vector memory to  %lu\n", sizeof(*(VECTOR).vector) * (*(VECTOR).vector_capacity)); \
+    DEBUG_PRINT("vector_initialize: mallocing vector memory to  %lu\n", sizeof(*(VECTOR).vector) * (*(VECTOR).vector_capacity)); \
     (VECTOR).vector = malloc(sizeof(*(VECTOR).vector) * (*(VECTOR).vector_capacity));\
     (VECTOR).current_index = NULL; \
     if (!(VECTOR).vector) { \
-        printf("vector_initialize: Calloc failed"); \
+        printf("vector_initialize: malloc failed"); \
         abort(); \
     } \
 } while(0)
@@ -48,7 +48,7 @@ static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 #define vector_push_back(VECTOR, DATA) do { \
     if ((VECTOR).current_index == NULL) { \
         DEBUG_PRINT("vector_push_back: Current index is null, initializing to 0\n"); \
-        ((VECTOR).current_index) = (size_t *) calloc(sizeof(size_t), (1)); \
+        ((VECTOR).current_index) = (size_t *) malloc(sizeof(size_t) * (1)); \
         (*(VECTOR).current_index) = 0; \
         pthread_mutex_lock(&mutex); \
         (VECTOR).vector[((*(VECTOR).current_index))] = DATA; \
@@ -69,7 +69,7 @@ static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
             abort(); \
         } \
         if (!(VECTOR).vector) { \
-            printf("vector_push_back: Calloc failed"); \
+            printf("vector_push_back: malloc failed"); \
             abort(); \
         } \
         (*(VECTOR).current_index) += 1; \
